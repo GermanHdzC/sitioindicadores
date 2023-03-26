@@ -114,7 +114,7 @@ USE_I18N = True
 
 USE_TZ = True
 
-CSRF_TRUSTED_ORIGINS = ['https://sitio-indicadores.azurewebsites.net/']
+CSRF_TRUSTED_ORIGINS = ['https://*.azurewebsites.net/']
 
 # Static files (CSS, JavaScript, Images)
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
