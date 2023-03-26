@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 
 # Create your views here.
-@login_required
+#@login_required
 def home(request):
     username = request.user.username
     context = {'username': username}
