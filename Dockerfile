@@ -28,8 +28,7 @@ RUN pip install -r requirements.txt
 # Copiar el archivo de configuración de Nginx
 COPY nginx.conf /etc/nginx/sites-available/default
 
-RUN python manage.py collectstatic --noinput
-# && python manage.py makemigrations && python manage.py migrate
+RUN python manage.py collectstatic --noinput && python manage.py makemigrations && python manage.py migrate
 
 # Exponer los puertos
 EXPOSE 80
