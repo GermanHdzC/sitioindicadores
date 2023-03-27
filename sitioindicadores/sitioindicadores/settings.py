@@ -26,12 +26,12 @@ SECRET_KEY = 'django-insecure-d*!1j5vborb&sk=rkh15^%v2p5c1c=!av_g+b024znqe2rba@r
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://sitio-indicadores.azurewebsites.net/']
+ALLOWED_HOSTS = ['https://sitio-indicadores.azurewebsites.net/','sitio-indicadores.azurewebsites.net']
 
 SECURE_SSL_REDIRECT = True
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
-SECURE_PROXY_SSL_HEADER = ('X_FORWARDED_PROTO', 'http')
+SECURE_PROXY_SSL_HEADER = ('X_FORWARDED_PROTO', 'https')
 
 
 # Application definition
