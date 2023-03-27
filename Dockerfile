@@ -28,9 +28,7 @@ RUN pip install -r requirements.txt
 # Copiar el archivo de configuración de Nginx
 COPY nginx.conf /etc/nginx/sites-available/default
 
-
 RUN python manage.py collectstatic --noinput && python manage.py makemigrations && python manage.py migrate
-RUN echo "from django.contrib.auth.models import User; User.objects.create_superuser('admin', 'admin@example.com', 'admin123')"
 
 # Exponer los puertos
 EXPOSE 80
