@@ -123,6 +123,9 @@ USE_TZ = True
 CSRF_TRUSTED_ORIGINS = ['https://*.azurewebsites.net/','https://*.127.0.0.1']
 SESSION_COOKIE_DOMAIN='https://sitio-indicadores.azurewebsites.net/'
 
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
 # Static files (CSS, JavaScript, Images)
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
