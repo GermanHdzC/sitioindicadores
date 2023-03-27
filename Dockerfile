@@ -22,9 +22,11 @@ WORKDIR /app
 # Copiar el directorio de la aplicación al contenedor
 COPY sitioindicadores .
 
+
 # Instalar dependencias de la aplicación
 RUN pip install -r requirements.txt 
 
+RUN chown -R www-data:www-data /app/static
 # Copiar el archivo de configuración de Nginx
 COPY nginx.conf /etc/nginx/sites-available/default
 
