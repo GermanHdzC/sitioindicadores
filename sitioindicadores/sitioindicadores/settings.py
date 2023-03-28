@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-d*!1j5vborb&sk=rkh15^%v2p5c1c=!av_g+b024znqe2rba@r
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['https://sitio-indicadores.azurewebsites.net/','sitio-indicadores.azurewebsites.net']
+ALLOWED_HOSTS = ['*']# ['https://sitio-indicadores.azurewebsites.net/','sitio-indicadores.azurewebsites.net']
 
 #SECURE_SSL_REDIRECT = True
 SESSION_COOKIE_SECURE = True
@@ -126,7 +126,7 @@ USE_I18N = True
 USE_TZ = True
 
 CSRF_TRUSTED_ORIGINS = ['https://*.azurewebsites.net/','https://*.127.0.0.1']
-SESSION_COOKIE_DOMAIN='https://sitio-indicadores.azurewebsites.net/'
+#SESSION_COOKIE_DOMAIN='https://sitio-indicadores.azurewebsites.net/'
 
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
