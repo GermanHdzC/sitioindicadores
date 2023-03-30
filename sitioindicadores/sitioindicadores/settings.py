@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,12 +22,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-d*!1j5vborb&sk=rkh15^%v2p5c1c=!av_g+b024znqe2rba@r'
+SECRET_KEY = os.environ.get('SECRET_KEY', default='your secret key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = 'RENDER' not in os.environ
 
-ALLOWED_HOSTS = ['*']# ['https://sitio-indicadores.azurewebsites.net/','sitio-indicadores.azurewebsites.net']
+ALLOWED_HOSTS = []# ['https://sitio-indicadores.azurewebsites.net/','sitio-indicadores.azurewebsites.net']
+
+RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME') 
+if RENDER_EXTERNAL_HOSTNAME:    
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
 #SECURE_SSL_REDIRECT = True
 SESSION_COOKIE_SECURE = True
@@ -61,7 +66,7 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
 
-AUTH_USER_MODEL = 'auth.User'
+#AUTH_USER_MODEL = 'auth.User'
 
 ROOT_URLCONF = 'sitioindicadores.urls'
 
@@ -87,13 +92,19 @@ WSGI_APPLICATION = 'sitioindicadores.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
+DATABASES = {
+    'default': dj_database_url.config(
+            # Feel free to alter this value to suit your needs.
+            #         default='postgresql://postgres:postgres@localhost:5432/mysite',
+            #         conn_max_age=600   
+         )}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -125,18 +136,23 @@ USE_I18N = True
 
 USE_TZ = True
 
-CSRF_TRUSTED_ORIGINS = ['https://*.azurewebsites.net/','https://*.127.0.0.1']
+#CSRF_TRUSTED_ORIGINS = ['https://*.azurewebsites.net/','https://*.127.0.0.1']
 #SESSION_COOKIE_DOMAIN='https://sitio-indicadores.azurewebsites.net/'
 
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 
 # Static files (CSS, JavaScript, Images)
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+#STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS=(os.path.join(BASE_DIR,"static"),)
+if not DEBUG:    # Tell Django to copy statics to the `staticfiles` directory
+    # in your application directory on Render.
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    # Turn on WhiteNoise storage backend that takes care of compressing static files
+    # and creating unique names for each version so they can safely be cached forever.
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
